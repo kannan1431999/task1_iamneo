@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,51 @@
   to {
     transform: rotate(360deg);
   }
+} */
+.drag-container {
+  text-align: center;
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.head {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background-color: #CCCCCC;
+  width:100%;
+}
+
+.droppable {
+  width: 20%;
+  background-color: #EEEEEE;
+  border: 1px solid black;
+}
+
+.draggable_inProgress {
+  height: 100px;
+  background-color: yellow;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid yellow;
+  border-radius: 20px;
+  box-shadow: 4px 4px grey;
+ }
+
+ .draggable_done {
+  height: 100px;
+  background-color: #83e183;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid yellow;
+  border-radius: 20px;
+  box-shadow: 4px 4px grey; 
+}
+
+.inProgress {
+  width: 20%;
+  background-color: #EEEEEE;
+  border: 1px solid black;
+  margin-right: 15%;
 }
