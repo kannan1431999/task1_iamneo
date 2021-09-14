@@ -8,43 +8,45 @@ class CardLayout extends Component {
         tasks: [
             {id: "1", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"inProgress", orderNo: "#2"},
             {id: "2", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"inProgress", orderNo:"#3"},
-            {id: "3", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"done", orderNo:"#4"},
-            {id: "4", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"done", orderNo:"#5"},
-            {id: "5", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"done", orderNo:"#6"},
+            {id: "3", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"inProgress", orderNo:"#4"},
+            {id: "4", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"inProgress", orderNo:"#5"},
+            {id: "5", items:"Paratha side dish (2 nos), Plain Dosa (1 nos), Butter Roti (5 nos)", type:"inProgress", orderNo:"#6"},
           ]
       }
   }
 
 onDragStart = (event, data) => {
-  event.dataTransfer.setData("orderNo", data.id);
+  // event.dataTransfer.setData("orderNo", data.id);
+  console.log('onDragStart', event.currentTarget);
   this.dragged = event.currentTarget;
 }
 
 onDragOver = (event) => {
   event.preventDefault();
+  console.log('target', event.target);
   this.over = event.target;
 }
 
-onDrop = (event, type) => {
-  const {tasks} = this.state;
-    let orderNo = event.dataTransfer.getData("orderNo");
-    let cardDetails = tasks.filter((task) => {
-        if (task.id === orderNo) {
-            task.type = type;
-        }
-        return task;
-    });
-    this.setState({
-        ...this.state,
-        tasks: cardDetails,
-    });
-}
+// onDrop = (event, type) => {
+//   const {tasks} = this.state;
+//     let orderNo = event.dataTransfer.getData("orderNo");
+//     let cardDetails = tasks.filter((task) => {
+//         if (task.id === orderNo) {
+//             task.type = type;
+//         }
+//         return task;
+//     });
+//     this.setState({
+//         ...this.state,
+//         tasks: cardDetails,
+//     });
+// }
 
 dragEnd = (event) => {
   let data = this.state.tasks;
+  console.log('dataList', this.dragged, this.over);
   let from = Number(this.dragged.dataset.id);
   let to = Number(this.over.dataset.id);
-  console.log('Completed', this.dragged, this.over);
   data.splice(to, 0, data.splice(from, 1)[0]);
   this.setState({tasks: data});
 }
@@ -81,16 +83,17 @@ render() {
       <div className="drag-container">
         <div className="inProgress"
           onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>{this.onDrop(event, "inProgress")}}>
+          // onDrop={(event)=>{this.onDrop(event, "inProgress")}}
+          >
             <span className="group-header"><b>In Progress</b></span>
             {cards.inProgress}
         </div>
-        <div className="droppable"
+        {/* <div className="droppable"
           onDragOver={(event)=>this.onDragOver(event)}
             onDrop={(event)=>this.onDrop(event, "done")}>
           <span className="group-header"><b>Completed</b></span>
           {cards.done}
-        </div>	        
+        </div>	         */}
       </div>
     );
   }
